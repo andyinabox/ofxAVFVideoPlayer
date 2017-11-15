@@ -39,7 +39,7 @@ void testApp::draw(){
 void testApp::keyPressed(int key){
     switch(key) {
         case '1':
-            videoPlayers[0]->loadMovie("movies/fingers.mov");
+            videoPlayers[0]->loadMovie("movies/fingers2.mov");
             break;
         case '2':
             videoPlayers[1]->loadMovie("movies/d4n1.mov");
