@@ -1,5 +1,6 @@
 example/*.xcconfig
 example/bin/*
+example/bin/*.app
 !example/bin/data/
 example/*.xcodeproj/
 example/*.plist
