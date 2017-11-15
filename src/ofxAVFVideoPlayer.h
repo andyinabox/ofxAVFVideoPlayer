@@ -20,7 +20,8 @@ public:
     
     ofxAVFVideoPlayer();
     ~ofxAVFVideoPlayer();
-    
+
+    bool load(std::string name);
     bool                loadMovie(string path);
     
     void                closeMovie();
@@ -34,13 +35,14 @@ public:
     OF_DEPRECATED_MSG("Use getTexture()->bind() instead. Ensure decodeMode != OF_QTKIT_DECODE_PIXELS_ONLY.", void bind());
     OF_DEPRECATED_MSG("Use getTexture()->unbind() instead. Ensure decodeMode != OF_QTKIT_DECODE_PIXELS_ONLY.", void unbind());
     
-    bool                isFrameNew(); //returns true if the frame has changed in this update cycle
-    
+    bool isFrameNew() const; //returns true if the frame has changed in this update cycle
+
     // Returns openFrameworks compatible RGBA pixels.
     // Be aware of your current render mode.
     
-    unsigned char * getPixels();
-    ofPixelsRef     getPixelsRef();
+    ofPixels& getPixels();
+    ofPixels& getPixels() const;
+    ofPixels& getPixelsRef();
     
     // Returns openFrameworks compatible ofTexture pointer.
     // if decodeMode == OF_QTKIT_DECODE_PIXELS_ONLY,
@@ -67,18 +69,18 @@ public:
     
     // ofQTKitPlayer only supports OF_PIXELS_RGB and OF_PIXELS_RGBA.
     bool                setPixelFormat(ofPixelFormat pixelFormat);
-    ofPixelFormat       getPixelFormat();
-    
+    ofPixelFormat       getPixelFormat() const;
+
     void                draw(float x, float y, float w, float h);
     void                draw(float x, float y);
     
-    float               getWidth();
-    float               getHeight();
+    float               getWidth() const;
+    float               getHeight() const;
     
-    bool                isPaused();
-    bool                isLoaded();
+    bool                isPaused() const;
+    bool                isLoaded() const;
     bool                isLoading();
-    bool                isPlaying();
+    bool                isPlaying() const;
     bool                errorLoading();
     
     

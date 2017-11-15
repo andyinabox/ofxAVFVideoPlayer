@@ -27,6 +27,10 @@ ofxAVFVideoPlayer::~ofxAVFVideoPlayer() {
     close();
 }
 
+bool ofxAVFVideoPlayer::load(std::string name) {
+    // included this to get rid of build errors ¯\_(ツ)_/¯
+}
+
 bool ofxAVFVideoPlayer::loadMovie(string path) {
     bInitialized = false;
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
@@ -97,22 +101,27 @@ void ofxAVFVideoPlayer::stop() {
     [moviePlayer stop];
 }
 
-bool ofxAVFVideoPlayer::isFrameNew() {
+bool ofxAVFVideoPlayer::isFrameNew() const {
     return true;
 }
 
-unsigned char* ofxAVFVideoPlayer::getPixels() {
-    if(!moviePlayer || ![moviePlayer isReady] || !bInitialized) return NULL;
+ofPixels& ofxAVFVideoPlayer::getPixels() {
+   if(!moviePlayer || ![moviePlayer isReady] || !bInitialized) return;
         
     if(bHavePixelsChanged) {
         fbo.readToPixels(pixels);
         bHavePixelsChanged = false; // Don't read pixels until next update() is called
     }
     
-    return pixels.getPixels();
+    return pixels;
 }
 
-ofPixelsRef ofxAVFVideoPlayer::getPixelsRef() {
+
+ofPixels& ofxAVFVideoPlayer::getPixels() const {
+    // included this to get rid of build errors ¯\_(ツ)_/¯
+}
+
+ofPixels& ofxAVFVideoPlayer::getPixelsRef() {
     getPixels();
     return pixels;
 }
@@ -194,7 +203,7 @@ bool ofxAVFVideoPlayer::setPixelFormat(ofPixelFormat pixelFormat) {
     
 }
 
-ofPixelFormat ofxAVFVideoPlayer::getPixelFormat() {
+ofPixelFormat ofxAVFVideoPlayer::getPixelFormat() const {
     
 }
 
@@ -208,15 +217,15 @@ void ofxAVFVideoPlayer::draw(float x, float y) {
     fbo.draw(x, y);
 }
 
-float ofxAVFVideoPlayer::getWidth() {
+float ofxAVFVideoPlayer::getWidth() const {
     return [moviePlayer getVideoSize].width;
 }
 
-float ofxAVFVideoPlayer::getHeight() {
+float ofxAVFVideoPlayer::getHeight() const {
     return [moviePlayer getVideoSize].height;
 }
 
-bool ofxAVFVideoPlayer::isPaused() {
+bool ofxAVFVideoPlayer::isPaused() const {
     return [moviePlayer player].rate == 0;
 }
 
@@ -224,7 +233,7 @@ bool ofxAVFVideoPlayer::isLoading() {
     return [moviePlayer isLoading];
 }
 
-bool ofxAVFVideoPlayer::isLoaded() {
+bool ofxAVFVideoPlayer::isLoaded() const {
     return bInitialized;
 }
 
@@ -235,7 +244,7 @@ bool ofxAVFVideoPlayer::errorLoading() {
     return (![moviePlayer isLoading] && ![moviePlayer isReady]);
 }
 
-bool ofxAVFVideoPlayer::isPlaying() {
+bool ofxAVFVideoPlayer::isPlaying() const {
     
 }
 
